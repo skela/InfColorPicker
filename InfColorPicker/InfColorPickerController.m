@@ -63,7 +63,6 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 @synthesize barView, squareView;
 @synthesize barPicker, squarePicker;
 @synthesize sourceColorView,  resultColorView;
-@synthesize navController;
 
 //------------------------------------------------------------------------------
 #pragma mark	Class methods
@@ -93,7 +92,6 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 	[ squarePicker release ];
 	[ sourceColorView release ];
 	[ resultColorView release ];
-	[ navController release ];
 	
 	[ sourceColor release ];
 	[ resultColor release ];
@@ -151,7 +149,6 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 	self.squarePicker = nil;
 	self.sourceColorView = nil;
 	self.resultColorView = nil;
-	self.navController = nil;
 }
 
 //------------------------------------------------------------------------------
@@ -292,6 +289,11 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 - (CGSize) contentSizeForViewInPopover
 {
 	return [ [ self class ] idealSizeForViewInPopover ];
+}
+
+- (CGSize) preferredContentSize
+{
+    return [ [ self class] idealSizeForViewInPopover ];
 }
 
 //------------------------------------------------------------------------------
