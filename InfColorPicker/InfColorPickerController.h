@@ -30,13 +30,14 @@
 	// Public API:
 
 + (InfColorPickerController*) colorPickerViewController;
-+ (CGSize) idealSizeForViewInPopover;
+
+- (id) initWithSize:(CGSize)size;
 
 - (void) presentModallyOverViewController: (UIViewController*) controller;
 
 @property( retain, nonatomic ) UIColor* sourceColor;
 @property( retain, nonatomic ) UIColor* resultColor;
-
+@property( readwrite, nonatomic ) CGSize idealSizeForViewInPopover;
 @property( assign, nonatomic ) id< InfColorPickerControllerDelegate > delegate;
 
 	// IB outlets:

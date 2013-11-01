@@ -16,6 +16,8 @@
 #import "InfColorSquarePicker.h"
 #import "InfHSBSupport.h"
 
+#define kNibName @"InfColorPickerView"
+
 //------------------------------------------------------------------------------
 
 static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
@@ -70,14 +72,7 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 
 + (InfColorPickerController*) colorPickerViewController
 {
-	return [ [ [ self alloc ] initWithNibName: @"InfColorPickerView" bundle: nil ] autorelease ];
-}
-
-//------------------------------------------------------------------------------
-
-+ (CGSize) idealSizeForViewInPopover
-{
-	return CGSizeMake( 256 + ( 1 + 20 ) * 2, 420 );
+	return [ [ [ self alloc ] initWithNibName:kNibName bundle: nil ] autorelease ];
 }
 
 //------------------------------------------------------------------------------
@@ -103,16 +98,31 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 #pragma mark	Creation
 //------------------------------------------------------------------------------
 
+- (void)commonInit
+{
+    self.navigationItem.title = NSLocalizedString( @"Set Color",
+                                                  @"InfColorPicker default nav item title" );
+    self.idealSizeForViewInPopover = CGSizeMake( 256 + ( 1 + 20 ) * 2, 420 );
+}
+
 - (id) initWithNibName: (NSString*) nibNameOrNil bundle: (NSBundle*) nibBundleOrNil
 {
 	self = [ super initWithNibName: nibNameOrNil bundle: nibBundleOrNil ];
-	
-	if( self ) {
-		self.navigationItem.title = NSLocalizedString( @"Set Color", 
-									@"InfColorPicker default nav item title" );
+	if( self )
+    {
+		[self commonInit];
 	}
-	
 	return self;
+}
+
+- (id) initWithSize:(CGSize)size
+{
+    self = [self initWithNibName:kNibName bundle:nil];
+    if (self)
+    {
+        self.idealSizeForViewInPopover = size;
+    }
+    return self;
 }
 
 //------------------------------------------------------------------------------
@@ -288,12 +298,12 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 
 - (CGSize) contentSizeForViewInPopover
 {
-	return [ [ self class ] idealSizeForViewInPopover ];
+	return [self idealSizeForViewInPopover ];
 }
 
 - (CGSize) preferredContentSize
 {
-    return [ [ self class] idealSizeForViewInPopover ];
+    return [self idealSizeForViewInPopover ];
 }
 
 //------------------------------------------------------------------------------
