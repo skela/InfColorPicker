@@ -48,6 +48,7 @@
 @property( retain, nonatomic ) IBOutlet InfColorSquarePicker* squarePicker;
 @property( retain, nonatomic ) IBOutlet UIView* sourceColorView;
 @property( retain, nonatomic ) IBOutlet UIView* resultColorView;
+@property( retain, nonatomic ) IBOutlet UIView *topStrip;
 
 @end
 

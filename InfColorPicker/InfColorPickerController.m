@@ -65,6 +65,7 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 @synthesize barView, squareView;
 @synthesize barPicker, squarePicker;
 @synthesize sourceColorView,  resultColorView;
+@synthesize topStrip;
 
 //------------------------------------------------------------------------------
 #pragma mark	Class methods
@@ -87,7 +88,8 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 	[ squarePicker release ];
 	[ sourceColorView release ];
 	[ resultColorView release ];
-	
+	[ topStrip release ];
+    
 	[ sourceColor release ];
 	[ resultColor release ];
 	
@@ -159,6 +161,19 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 	self.squarePicker = nil;
 	self.sourceColorView = nil;
 	self.resultColorView = nil;
+    self.topStrip = nil;
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    if (self.navigationController==nil)
+    {
+        CGRect f = self.topStrip.frame;
+        f.origin.y=20;
+        self.topStrip.frame=f;
+    }
 }
 
 //------------------------------------------------------------------------------
