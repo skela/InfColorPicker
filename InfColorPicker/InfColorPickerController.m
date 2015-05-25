@@ -176,6 +176,16 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
     }
 }
 
+- (UIRectEdge)edgesForExtendedLayout
+{
+    return UIRectEdgeNone;
+}
+
+- (BOOL)extendedLayoutIncludesOpaqueBars
+{
+    return YES;
+}
+
 //------------------------------------------------------------------------------
 
 - (BOOL) shouldAutorotateToInterfaceOrientation: (UIInterfaceOrientation) interfaceOrientation
