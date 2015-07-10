@@ -12,6 +12,8 @@
 
 #import "InfColorPickerController.h"
 
+#import <objc/runtime.h>
+
 #import "InfColorBarPicker.h"
 #import "InfColorSquarePicker.h"
 #import "InfHSBSupport.h"
@@ -241,7 +243,10 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 
 - (IBAction) done: (id) sender
 {
-	[ self.delegate colorPickerControllerDidFinish: self ];	
+    if ([(id)self.delegate respondsToSelector:@selector(colorPickerControllerDidFinish:)])
+        [self.delegate colorPickerControllerDidFinish:self];
+    else
+        [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 //------------------------------------------------------------------------------
@@ -250,8 +255,21 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 
 - (void) informDelegateDidChangeColor
 {
-	if( self.delegate && [ (id) self.delegate respondsToSelector: @selector( colorPickerControllerDidChangeColor: ) ] )
-		[ self.delegate colorPickerControllerDidChangeColor: self ];
+	if(self.delegate && [(id)self.delegate respondsToSelector:@selector(colorPickerControllerDidChangeColor:)])
+		[self.delegate colorPickerControllerDidChangeColor:self];
+    else
+    {
+        void (^block)(InfColorPickerController*picker) = objc_getAssociatedObject(self, "changedBlock");
+        if (block!=NULL)
+        {
+            block(self);
+        }
+    }
+}
+
+- (void)setChangedBlock:(void (^)(InfColorPickerController *picker))block
+{
+    objc_setAssociatedObject(self, "changedBlock", [block copy], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 //------------------------------------------------------------------------------

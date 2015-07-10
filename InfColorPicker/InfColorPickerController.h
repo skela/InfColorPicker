@@ -40,6 +40,8 @@
 @property( readwrite, nonatomic ) CGSize idealSizeForViewInPopover;
 @property( assign, nonatomic ) id< InfColorPickerControllerDelegate > delegate;
 
+- (void)setChangedBlock:(void (^)(InfColorPickerController *picker))block;
+
 	// IB outlets:
 
 @property( retain, nonatomic ) IBOutlet InfColorBarView* barView;
