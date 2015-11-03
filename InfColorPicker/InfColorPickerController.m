@@ -170,12 +170,24 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
 {
     [super viewWillLayoutSubviews];
     
-    if (self.navigationController==nil)
-    {
-        CGRect f = self.topStrip.frame;
-        f.origin.y=20;
-        self.topStrip.frame=f;
-    }
+    CGFloat x = 10;
+    CGFloat w = self.view.bounds.size.width - 2*x;
+    
+    CGFloat sy = self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height;
+    sy = 10;
+
+    CGRect f = self.topStrip.frame;
+    f.origin.y=sy;
+    self.topStrip.frame=f;
+    
+    CGRect bp = self.barPicker.frame;
+    bp = CGRectMake(x,self.view.bounds.size.height-bp.size.height-10,w,bp.size.height);
+    self.barPicker.frame = bp;
+    
+    CGFloat y = f.origin.y + f.size.height + 10;
+    CGFloat h = bp.origin.y - 10 - y;
+    
+    self.squarePicker.frame = CGRectMake(x,y,w,h);
 }
 
 - (UIRectEdge)edgesForExtendedLayout
