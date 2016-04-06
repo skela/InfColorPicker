@@ -166,6 +166,22 @@ static void HSVFromUIColor( UIColor* color, float* h, float* s, float* v )
     self.topStrip = nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.resultIsFinal = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    self.resultIsFinal = YES;
+    
+    [self informDelegateDidChangeColor];
+}
+
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];

@@ -38,6 +38,7 @@
 @property( retain, nonatomic ) UIColor* sourceColor;
 @property( retain, nonatomic ) UIColor* resultColor;
 @property( readwrite, nonatomic ) CGSize idealSizeForViewInPopover;
+@property( readwrite, nonatomic ) BOOL resultIsFinal;
 @property( assign, nonatomic ) id< InfColorPickerControllerDelegate > delegate;
 
 - (void)setChangedBlock:(void (^)(InfColorPickerController *picker))block;
